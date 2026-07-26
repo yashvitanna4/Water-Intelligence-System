@@ -67,95 +67,70 @@ st.markdown("""
         border: none;
     
     }
-
-div[data-baseweb="input"] {
+    div[data-baseweb="input"] {
     background-color: #ffffff !important;
     border: 2px solid #0b5ed7 !important;
     border-radius: 8px !important;
-}
-
-
-div[data-baseweb="input"] input {
+    }
+    div[data-baseweb="input"] input {
     color: #1a1a1a !important;
     background-color: #ffffff !important;
     font-size: 16px !important;
-}
-
-/* Input box when selected */
-div[data-baseweb="input"]:focus-within {
+    }
+    div[data-baseweb="input"]:focus-within {
     border: 2px solid #084298 !important;
     box-shadow: 0 0 5px rgba(11, 94, 215, 0.3) !important;
-}
-
-
-button[data-testid="stNumberInputStepUp"],
-button[data-testid="stNumberInputStepDown"] {
+    }
+    button[data-testid="stNumberInputStepUp"],
+    button[data-testid="stNumberInputStepDown"] {
     color: #0b5ed7 !important;
     background-color: #ffffff !important;
-}
-
-
-div[data-baseweb="select"] > div {
+    }
+    div[data-baseweb="select"] > div {
     background-color: #ffffff !important;
     color: #1a1a1a !important;
     border: 2px solid #0b5ed7 !important;
     border-radius: 8px !important;
-}
-div[data-testid="stNumberInput"] button {
+    }
+    div[data-testid="stNumberInput"] button {
     display: none !important;
-}
-div[data-testid="stNumberInput"] input:focus {
+    }
+    div[data-testid="stNumberInput"] input:focus {
     caret-color: #0b5ed7 !important;
-}
-
-/* Selectbox */
-div[data-baseweb="select"] > div {
+    }
+    div[data-baseweb="select"] > div {
     background-color: white !important;
     color: black !important;
     border: 1px solid #cccccc !important;
-}
-
-/* Selectbox text */
-div[data-baseweb="select"] span {
+    }
+    div[data-baseweb="select"] span {
     color: black !important;
-}
-
-/* Dropdown menu */
-ul[data-baseweb="menu"] {
+    }
+    ul[data-baseweb="menu"] {
     background-color: white !important;
-}
-
-li[role="option"] {
+    }
+    li[role="option"] {
     color: black !important;
     background-color: white !important;
-}
-
-/* Metric cards */
-div[data-testid="stMetric"] {
+    }
+    div[data-testid="stMetric"] {
     background-color: white;
     border: 1px solid #dddddd;
     padding: 15px;
     border-radius: 10px;
-}
-
-/* Dataframe */
-div[data-testid="stDataFrame"] {
+    }
+    div[data-testid="stDataFrame"] {
     background-color: white;
-}
-
-/* Remove top blank header area */
-header[data-testid="stHeader"] {
+    }
+    header[data-testid="stHeader"] {
     background-color: white !important;
-}
-
-/* Sidebar if used */
-section[data-testid="stSidebar"] {
+    }
+    section[data-testid="stSidebar"] {
     background-color: white !important;
-}
-
-section[data-testid="stSidebar"] * {
+    }
+    section[data-testid="stSidebar"] * {
     color: black !important;
-}
+    }
 
 </style>
 """, unsafe_allow_html=True)
