@@ -471,9 +471,11 @@ elif menu == "Water Consumption":
     st.markdown("**Output:** Predicted Water Consumption (MLD)")
 
     @st.cache_resource
-    def load_consumption_model():
-        return joblib.load("Consumption.pkl")
-    consumption_model = load_consumption_model()
+def load_consumption_model():
+    with gzip.open("Consumption.pkl.gz", "rb") as f:
+        return pickle.load(f)
+
+consumption_model = load_consumption_model()
     
     st.subheader(" Predict Water Consumption")
 
