@@ -474,18 +474,14 @@ elif menu == "Water Shortage Risk":
             st.success(f"💧 Predicted Water Shortage Risk: {prediction[0]}")
 
 elif menu == "Water Consumption":
-    # Place model loading functions at the top level of your script
-@st.cache_resource
-def load_consumption_model():
-    model_path = Path(__file__).parent / "Consumption.pkl"
-    if not model_path.exists():
-        st.error(f"Model file not found: {model_path}")
-        return None
-    with open(model_path, "rb") as f:
-        return pickle.load(f)
-
-# Navigation section
-elif menu == "Water Consumption":
+    @st.cache_resource
+    def load_consumption_model():
+        model_path = Path(__file__).parent / "Consumption.pkl"
+        if not model_path.exists():
+            st.error(f"Model file not found: {model_path}")
+            return None
+        with open(model_path, "rb") as f:
+            return pickle.load(f)
     consumption_model = load_consumption_model()
 
     st.subheader("Predict Water Consumption")
