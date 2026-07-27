@@ -539,44 +539,22 @@ elif menu == "Water Consumption":
             
         )
 
-    if st.button(
-        "📊 Predict Water Consumption",
-        use_container_width=True
-    ):
-
-        
-
-        consumption_features = [
-            "population",
-            "temperature_c",
-            "humidity_percent",
-            "rainfall_mm",
-            "reservoir_level_percent",
-            "groundwater_level_m"
-        ]
-
+    if st.button("📊 Predict Water Consumption", use_container_width=True):
+    if consumption_model is None:
+        st.error("Consumption model could not be loaded.")
+    else:
         input_data = pd.DataFrame(
-            [[
-                population,
-                temperature,
-                humidity,
-                rainfall,
-                reservoir_level,
-                groundwater
-            ]],
+            [[population, temperature, humidity, rainfall, reservoir_level, groundwater]],
             columns=consumption_features
         )
+        prediction = consumption_model.predict(input_data)
+        st.success(f"📊 Predicted Water Consumption: {prediction[0]:.2f} MLD")
 
         
         
 
       
-        prediction = consumption_model.predict(input_data)
-
-        st.success(
-            f"📊 Predicted Water Consumption: "
-            f"{prediction[0]:.2f} MLD"
-        )
+        
 elif menu == "Leakage Detection":
 
     st.title("🚰 Water Leakage Detection")
