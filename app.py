@@ -515,7 +515,7 @@ elif menu == "Water Consumption":
             columns=consumption_features,
         )
 
-    prediction = consumption_model.predict(input_data)
+    prediction = Consumption_model.predict(input_data)
     st.success(
             f"📊 Predicted Water Consumption: {prediction[0]:.2f} MLD"
     )
