@@ -763,48 +763,47 @@ with col3:
    
 
 col1, col2 = st.columns(2)
+with col1:
 
-    with col1:
+    st.subheader("📊 Water Consumption")
 
-        st.subheader("📊 Water Consumption")
+    fig1 = px.bar(
+        district_df.head(20),
+        x="taluka",
+        y="water_consumption_mld",
+        color="water_consumption_mld",
+        title="Water Consumption by Taluka"
+    )
 
-        fig1 = px.bar(
-            district_df.head(20),
-            x="taluka",
-            y="water_consumption_mld",
-            color="water_consumption_mld",
-            title="Water Consumption by Taluka"
-        )
+    fig1.update_layout(
+        plot_bgcolor="white",
+        paper_bgcolor="white",
+        font=dict(color="#0b5ed7")
+    )
 
-        fig1.update_layout(
-            plot_bgcolor="white",
-            paper_bgcolor="white",
-            font=dict(color="#0b5ed7")
-        )
+    st.plotly_chart(fig1, use_container_width=True)
 
-        st.plotly_chart(fig1, use_container_width=True)
+with col2:
 
-    with col2:
+    st.subheader("💧 Water Shortage Risk")
 
-        st.subheader("💧 Water Shortage Risk")
+    risk = district_df["water_shortage_risk"].value_counts().reset_index()
 
-        risk = district_df["water_shortage_risk"].value_counts().reset_index()
+    risk.columns = ["Risk", "Count"]
 
-        risk.columns = ["Risk", "Count"]
+    fig2 = px.pie(
+        risk,
+        names="Risk",
+        values="Count",
+        title="Water Shortage Risk"
+    )
+    fig2.update_layout(
+        plot_bgcolor="white",
+        paper_bgcolor="white",
+        font=dict(color="#0b5ed7")
+    )
 
-        fig2 = px.pie(
-            risk,
-            names="Risk",
-            values="Count",
-            title="Water Shortage Risk"
-        )
-        fig2.update_layout(
-            plot_bgcolor="white",
-            paper_bgcolor="white",
-            font=dict(color="#0b5ed7")
-        )
-
-        st.plotly_chart(fig2, use_container_width=True)
+    st.plotly_chart(fig2, use_container_width=True)
 
     
 col3, col4 = st.columns(2)
