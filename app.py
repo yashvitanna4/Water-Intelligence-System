@@ -474,7 +474,7 @@ elif menu == "Water Shortage Risk":
             st.success(f"💧 Predicted Water Shortage Risk: {prediction[0]}")
 
 elif menu == "Water Consumption":
-   @st.cache_resource
+    @st.cache_resource
     def load_consumption_model():
         with open("Consumption.pkl", "rb") as f:
             return pickle.load(f)
