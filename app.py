@@ -14,6 +14,8 @@ from sklearn.metrics import (
 )
 import plotly.express as px
 import joblib
+import gzip
+import pickle
 
 df = pd.read_csv("Gujarat_Water_Intelligence.csv")
 st.set_page_config(
