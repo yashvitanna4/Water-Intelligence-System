@@ -716,28 +716,17 @@ elif menu == "dashboard":
     district_df = df[df["district"] == selected_district]
     st.markdown("""
 <style>
-.st-key-district_select div[data-baseweb="select"] > div {
-    background-color: #ffffff !important;
-    border: 2px solid #0b5ed7 !important;
-    border-radius: 8px !important;
+.st-key-district_select [data-baseweb="select"] > div {
+    background: #ffffff !important;
 }
 
-.st-key-district_select div[data-baseweb="select"] span {
+.st-key-district_select [data-baseweb="select"] input {
     color: #000000 !important;
     -webkit-text-fill-color: #000000 !important;
 }
 
-.st-key-district_select div[data-baseweb="select"] svg {
-    fill: #0b5ed7 !important;
-}
-
-.st-key-district_select ul[data-baseweb="menu"] {
-    background-color: #ffffff !important;
-}
-
-.st-key-district_select li[role="option"] {
+.st-key-district_select [data-baseweb="select"] div {
     color: #000000 !important;
-    background-color: #ffffff !important;
 }
 </style>
 """, unsafe_allow_html=True)
