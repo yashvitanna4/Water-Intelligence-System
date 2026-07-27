@@ -492,9 +492,8 @@ elif menu == "Water Consumption":
 
     @st.cache_resource
     def load_consumption_model():
-        with gzip.open("Consumption.pkl.gz", "rb") as f:
+        with open("Consumption.pkl", "rb") as f:
             return pickle.load(f)
-    consumption_model = load_consumption_model()
     
     st.subheader(" Predict Water Consumption")
 
