@@ -152,10 +152,6 @@ div[data-baseweb="select"] > div {
     background-color: white !important;
 }
 
-div[data-baseweb="select"] span {
-    color: black !important;
-}
-
 </style>
 """, unsafe_allow_html=True)
 
