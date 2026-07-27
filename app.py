@@ -709,31 +709,30 @@ elif menu == "dashboard":
 """, unsafe_allow_html=True)
 
     selected_district = st.selectbox(
-        "📍 Select District",
-        sorted(df["district"].dropna().unique())
-    )
+    "📍 Select District",
+    sorted(df["district"].dropna().unique()),
+    key="district_select"
+)
 
-    district_df = df[df["district"] == selected_district]
-    st.markdown("""
-    <style>
-    .st-key-selected_district div[data-baseweb="select"] > div {
+st.markdown("""
+<style>
+.st-key-district_select div[data-baseweb="select"] > div {
     background-color: #ffffff !important;
     border: 2px solid #0b5ed7 !important;
     border-radius: 8px !important;
-    }
-    .st-key-selected_district div[data-baseweb="select"] > div * {
-    color: #000000 !important;
-    -webkit-text-fill-color: #000000 !important;
-    }
-    .st-key-selected_district div[data-baseweb="select"] input {
-    color: #000000 !important;
-    -webkit-text-fill-color: #000000 !important;
-    }
-    
-    </style>
-    """, unsafe_allow_html=True)
+}
 
-    st.divider()
+.st-key-district_select div[data-baseweb="select"] > div * {
+    color: #000000 !important;
+    -webkit-text-fill-color: #000000 !important;
+}
+
+.st-key-district_select div[data-baseweb="select"] input {
+    color: #000000 !important;
+    -webkit-text-fill-color: #000000 !important;
+}
+</style>
+""", unsafe_allow_html=True)
 
    
 
