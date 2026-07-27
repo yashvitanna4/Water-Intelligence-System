@@ -730,7 +730,7 @@ elif menu == "dashboard":
     -webkit-text-fill-color: #000000 !important;
     }
     </style>
-    """, unsafe_allow_html=True)
+""", unsafe_allow_html=True)
 
     st.divider()
 
