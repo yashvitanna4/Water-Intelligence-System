@@ -752,7 +752,7 @@ with col2:
     </div>
     """, unsafe_allow_html=True)
 
- with col3:
+with col3:
     st.markdown(f"""
     <div class="card">
     <div class="title">Water Consumption</div>
@@ -807,7 +807,7 @@ col1, col2 = st.columns(2)
         st.plotly_chart(fig2, use_container_width=True)
 
     
-    col3, col4 = st.columns(2)
+col3, col4 = st.columns(2)
 
     with col3:
 
