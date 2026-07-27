@@ -478,7 +478,7 @@ elif menu == "Water Consumption":
     def load_consumption_model():
         with open("Consumption.pkl", "rb") as f:
             return pickle.load(f)
-
+    consumption_model = load_consumption_model()
     st.subheader("Predict Water Consumption")
 
     col1, col2 = st.columns(2)
