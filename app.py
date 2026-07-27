@@ -148,6 +148,13 @@ input:-webkit-autofill {
     -webkit-box-shadow: 0 0 0 1000px #ffffff inset !important;
     -webkit-text-fill-color: #000000 !important;
 }
+div[data-baseweb="select"] > div {
+    background-color: white !important;
+}
+
+div[data-baseweb="select"] span {
+    color: black !important;
+}
 
 </style>
 """, unsafe_allow_html=True)
