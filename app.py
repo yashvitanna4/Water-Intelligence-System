@@ -131,6 +131,23 @@ st.markdown("""
     section[data-testid="stSidebar"] * {
     color: black !important;
     }
+    div[data-baseweb="input"] {
+    background-color: #ffffff !important;
+    border: 2px solid #0b5ed7 !important;
+    border-radius: 8px !important;
+}
+
+div[data-baseweb="input"] input,
+.stNumberInput input {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    -webkit-text-fill-color: #000000 !important;
+}
+
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px #ffffff inset !important;
+    -webkit-text-fill-color: #000000 !important;
+}
 
 </style>
 """, unsafe_allow_html=True)
