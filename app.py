@@ -473,35 +473,11 @@ elif menu == "Water Shortage Risk":
             prediction = shortage_model.predict(input_data)
             st.success(f"💧 Predicted Water Shortage Risk: {prediction[0]}")
 
-import pickle
-from pathlib import Path
-import pandas as pd
-import streamlit as st
-
-
-@st.cache_resource
-def load_consumption_model():
-    # Construct absolute path relative to app.py location
-    model_path = Path(__file__).resolve().parent / "Consumption.pkl"
-
-    if not model_path.exists():
-        # Raise an exception so Streamlit cache doesn't cache a None result
-        raise FileNotFoundError(
-            f"Model file not found at: {model_path}. "
-            "Please verify the file exists in your repository root."
-        )
-
-    with open(model_path, "rb") as f:
-        return pickle.load(f)
-
-
-# Navigation handling inside your app logic
-if menu == "Water Consumption":
-    try:
-        consumption_model = load_consumption_model()
-    except FileNotFoundError as e:
-        st.error(str(e))
-        consumption_model = None
+elif menu == "Water Consumption":
+   @st.cache_resource
+    def load_consumption_model():
+        with open("Consumption.pkl", "rb") as f:
+            return pickle.load(f)
 
     st.subheader("Predict Water Consumption")
 
