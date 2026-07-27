@@ -473,16 +473,35 @@ elif menu == "Water Shortage Risk":
             prediction = shortage_model.predict(input_data)
             st.success(f"💧 Predicted Water Shortage Risk: {prediction[0]}")
 
-elif menu == "Water Consumption":
-    @st.cache_resource
-    def load_consumption_model():
-        model_path = Path(__file__).parent / "Consumption.pkl"
-        if not model_path.exists():
-            st.error(f"Model file not found: {model_path}")
-            return None
-        with open(model_path, "rb") as f:
-            return pickle.load(f)
-    consumption_model = load_consumption_model()
+import pickle
+from pathlib import Path
+import pandas as pd
+import streamlit as st
+
+
+@st.cache_resource
+def load_consumption_model():
+    # Construct absolute path relative to app.py location
+    model_path = Path(__file__).resolve().parent / "Consumption.pkl"
+
+    if not model_path.exists():
+        # Raise an exception so Streamlit cache doesn't cache a None result
+        raise FileNotFoundError(
+            f"Model file not found at: {model_path}. "
+            "Please verify the file exists in your repository root."
+        )
+
+    with open(model_path, "rb") as f:
+        return pickle.load(f)
+
+
+# Navigation handling inside your app logic
+if menu == "Water Consumption":
+    try:
+        consumption_model = load_consumption_model()
+    except FileNotFoundError as e:
+        st.error(str(e))
+        consumption_model = None
 
     st.subheader("Predict Water Consumption")
 
@@ -509,7 +528,7 @@ elif menu == "Water Consumption":
 
     if st.button("📊 Predict Water Consumption", use_container_width=True):
         if consumption_model is None:
-            st.error("Consumption model is not loaded.")
+            st.error("Consumption model could not be loaded.")
         else:
             input_data = pd.DataFrame(
                 [[
@@ -527,7 +546,6 @@ elif menu == "Water Consumption":
             st.success(
                 f"📊 Predicted Water Consumption: {prediction[0]:.2f} MLD"
             )
-        
 elif menu == "Leakage Detection":
 
     st.title("🚰 Water Leakage Detection")
