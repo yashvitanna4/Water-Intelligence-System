@@ -474,86 +474,63 @@ elif menu == "Water Shortage Risk":
             st.success(f"💧 Predicted Water Shortage Risk: {prediction[0]}")
 
 elif menu == "Water Consumption":
+    # Place model loading functions at the top level of your script
+@st.cache_resource
+def load_consumption_model():
+    model_path = Path(__file__).parent / "Consumption.pkl"
+    if not model_path.exists():
+        st.error(f"Model file not found: {model_path}")
+        return None
+    with open(model_path, "rb") as f:
+        return pickle.load(f)
 
-    st.title("📊 Water Consumption Prediction")
+# Navigation section
+elif menu == "Water Consumption":
+    consumption_model = load_consumption_model()
 
-    st.write(
-        """
-        Estimate water consumption in Million Litres per Day (MLD)
-        using population, rainfall, temperature and environmental
-        factors.
-
-        This prediction supports better water supply planning and
-        efficient management of future water demand.
-        """
-    )
-
-    st.markdown("**Output:** Predicted Water Consumption (MLD)")
-
-    @st.cache_resource
-    def load_consumption_model():
-        with open("Consumption.pkl", "rb") as f:
-            return pickle.load(f)
-    
-    st.subheader(" Predict Water Consumption")
+    st.subheader("Predict Water Consumption")
 
     col1, col2 = st.columns(2)
 
     with col1:
-
-        population = st.number_input(
-            "Population",
-            min_value=0.0,
-            
-        )
-
-        temperature = st.number_input(
-            "Temperature (°C)",
-            min_value=0.0,
-        )
-
-        humidity = st.number_input(
-            "Humidity (%)",
-            min_value=0.0,
-           
-            
-        )
+        population = st.number_input("Population", min_value=0.0)
+        temperature = st.number_input("Temperature (°C)", min_value=0.0)
+        humidity = st.number_input("Humidity (%)", min_value=0.0)
 
     with col2:
+        rainfall = st.number_input("Rainfall (mm)", min_value=0.0)
+        reservoir_level = st.number_input("Reservoir Level (%)", min_value=0.0)
+        groundwater = st.number_input("Groundwater Level (m)", min_value=0.0)
 
-        rainfall = st.number_input(
-            "Rainfall (mm)",
-            min_value=0.0,
-            
-        )
-
-        reservoir_level = st.number_input(
-            "Reservoir Level (%)",
-            min_value=0.0,
-            
-        )
-
-        groundwater = st.number_input(
-            "Groundwater Level (m)",
-            min_value=0.0,
-            
-        )
+    consumption_features = [
+        "population",
+        "temperature_c",
+        "humidity_percent",
+        "rainfall_mm",
+        "reservoir_level_percent",
+        "groundwater_level_m",
+    ]
 
     if st.button("📊 Predict Water Consumption", use_container_width=True):
-    if consumption_model is None:
-        st.error("Consumption model could not be loaded.")
-    else:
-        input_data = pd.DataFrame(
-            [[population, temperature, humidity, rainfall, reservoir_level, groundwater]],
-            columns=consumption_features
-        )
-        prediction = consumption_model.predict(input_data)
-        st.success(f"📊 Predicted Water Consumption: {prediction[0]:.2f} MLD")
+        if consumption_model is None:
+            st.error("Consumption model is not loaded.")
+        else:
+            input_data = pd.DataFrame(
+                [[
+                    population,
+                    temperature,
+                    humidity,
+                    rainfall,
+                    reservoir_level,
+                    groundwater,
+                ]],
+                columns=consumption_features,
+            )
 
-        
-        
-
-      
+            prediction = consumption_model.predict(input_data)
+            st.success(
+                f"📊 Predicted Water Consumption: {prediction[0]:.2f} MLD"
+            )
         
 elif menu == "Leakage Detection":
 
