@@ -808,46 +808,46 @@ with col2:
     
 col3, col4 = st.columns(2)
 
-    with col3:
+with col3:
 
-        st.subheader(" Rainfall vs Groundwater")
+    st.subheader(" Rainfall vs Groundwater")
 
-        fig3 = px.scatter(
-            district_df,
-            x="rainfall_mm",
-            y="groundwater_level_m",
-            color="water_shortage_risk",
-            title="Rainfall vs Groundwater Level"
-        )
-        fig3.update_layout(
-            plot_bgcolor="white",
-            font=dict(color="#0b5ed7"),
-            paper_bgcolor="white"
-        )
+    fig3 = px.scatter(
+        district_df,
+        x="rainfall_mm",
+        y="groundwater_level_m",
+        color="water_shortage_risk",
+        title="Rainfall vs Groundwater Level"
+    )
+    fig3.update_layout(
+        plot_bgcolor="white",
+        font=dict(color="#0b5ed7"),
+        paper_bgcolor="white"
+    )
 
-        st.plotly_chart(fig3, use_container_width=True)
+    st.plotly_chart(fig3, use_container_width=True)
 
-    with col4:
+with col4:
 
-        st.subheader(" Leakage Detection")
+    st.subheader(" Leakage Detection")
 
-        leak = district_df["leakage_detected"].value_counts().reset_index()
+    leak = district_df["leakage_detected"].value_counts().reset_index()
 
-        leak.columns = ["Leakage", "Count"]
+    leak.columns = ["Leakage", "Count"]
 
-        fig4 = px.pie(
-            leak,
-            names="Leakage",
-            values="Count",
-            title="Leakage Status"
-        )
-        fig4.update_layout(
-            plot_bgcolor="white",
-            font=dict(color="#0b5ed7"),
-            paper_bgcolor="white"
-        )
+    fig4 = px.pie(
+        leak,
+        names="Leakage",
+        values="Count",
+        title="Leakage Status"
+    )
+    fig4.update_layout(
+        plot_bgcolor="white",
+        font=dict(color="#0b5ed7"),
+        paper_bgcolor="white"
+    )
 
-        st.plotly_chart(fig4, use_container_width=True)
+    st.plotly_chart(fig4, use_container_width=True)
 
 
 
