@@ -474,33 +474,39 @@ elif menu == "Water Shortage Risk":
             st.success(f"💧 Predicted Water Shortage Risk: {prediction[0]}")
 
 elif menu == "Water Consumption":
+    st.title("📊 Water Consumption Prediction")
+    st.write(
+        """
+        Estimate water consumption in Million Litres per Day (MLD)
+        using population, rainfall, temperature and environmental factors.
+
+        This prediction supports better water supply planning and efficient
+        management of future water demand.
+        """
+    )
+
+    st.markdown("**Output:** Predicted Water Consumption (MLD)")
+
     @st.cache_resource
     def load_consumption_model():
         with open("Consumption.pkl", "rb") as f:
             return pickle.load(f)
+
     consumption_model = load_consumption_model()
+
     st.subheader("Predict Water Consumption")
 
     col1, col2 = st.columns(2)
 
     with col1:
-        population = st.number_input("Population", min_value=0.0)
-        temperature = st.number_input("Temperature (°C)", min_value=0.0)
-        humidity = st.number_input("Humidity (%)", min_value=0.0)
+        population = st.number_input("Population", min_value=0.0, value=0.0)
+        temperature = st.number_input("Temperature (°C)", min_value=0.0, value=0.0)
+        humidity = st.number_input("Humidity (%)", min_value=0.0, value=0.0)
 
     with col2:
-        rainfall = st.number_input("Rainfall (mm)", min_value=0.0)
-        reservoir_level = st.number_input("Reservoir Level (%)", min_value=0.0)
-        groundwater = st.number_input("Groundwater Level (m)", min_value=0.0)
-
-    consumption_features = [
-        "population",
-        "temperature_c",
-        "humidity_percent",
-        "rainfall_mm",
-        "reservoir_level_percent",
-        "groundwater_level_m",
-    ]
+        rainfall = st.number_input("Rainfall (mm)", min_value=0.0, value=0.0)
+        reservoir_level = st.number_input("Reservoir Level (%)", min_value=0.0, value=0.0)
+        groundwater = st.number_input("Groundwater Level (m)", min_value=0.0, value=0.0)
 
     if st.button("📊 Predict Water Consumption", use_container_width=True):
         input_data = pd.DataFrame(
@@ -510,15 +516,21 @@ elif menu == "Water Consumption":
                 humidity,
                 rainfall,
                 reservoir_level,
-                groundwater,
+                groundwater
             ]],
-            columns=consumption_features,
+            columns=[
+                "population",
+                "temperature_c",
+                "humidity_percent",
+                "rainfall_mm",
+                "reservoir_level_percent",
+                "groundwater_level_m"
+            ]
         )
 
-    prediction = Consumption_model.predict(input_data)
-    st.success(
-            f"📊 Predicted Water Consumption: {prediction[0]:.2f} MLD"
-    )
+        prediction = consumption_model.predict(input_data)
+
+        st.success(f"📊 Predicted Water Consumption: {prediction[0]:.2f} MLD")
 elif menu == "Leakage Detection":
 
     st.title("🚰 Water Leakage Detection")
