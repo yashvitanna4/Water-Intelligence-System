@@ -737,34 +737,32 @@ st.markdown("""
    
 
 col1, col2, col3, = st.columns(3)
+with col1:
+    st.markdown(f"""
+    <div class="card">
+    <div class="title">Population</div>
+    <div class="number">{int(district_df["population"].mean())}</div>
+    </div>
+    """, unsafe_allow_html=True)
+with col2:
+    st.markdown(f"""
+    <div class="card">
+    <div class="title">Avg Rainfall</div>
+    <div class="number">{district_df["rainfall_mm"].mean():.2f}</div>
+    </div>
+    """, unsafe_allow_html=True)
 
-    with col1:
-        st.markdown(f"""
-        <div class="card">
-        <div class="title">Population</div>
-        <div class="number">{int(district_df["population"].mean())}</div>
-        </div>
-        """, unsafe_allow_html=True)
-
-    with col2:
-        st.markdown(f"""
-        <div class="card">
-        <div class="title">Avg Rainfall</div>
-        <div class="number">{district_df["rainfall_mm"].mean():.2f}</div>
-        </div>
-        """, unsafe_allow_html=True)
-
-    with col3:
-        st.markdown(f"""
-        <div class="card">
-        <div class="title">Water Consumption</div>
-        <div class="number">{district_df["water_consumption_mld"].mean():.2f}</div>
-        </div>
-        """, unsafe_allow_html=True)
+ with col3:
+    st.markdown(f"""
+    <div class="card">
+    <div class="title">Water Consumption</div>
+    <div class="number">{district_df["water_consumption_mld"].mean():.2f}</div>
+    </div>
+    """, unsafe_allow_html=True)
 
    
 
-    col1, col2 = st.columns(2)
+col1, col2 = st.columns(2)
 
     with col1:
 
