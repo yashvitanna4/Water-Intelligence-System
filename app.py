@@ -674,14 +674,10 @@ elif menu == "Leakage Detection":
                 "✅ No Water Leakage Detected."
             )
 elif menu == "dashboard":
-
     st.title("💧 Water Intelligence Dashboard")
-
-    
 
     st.markdown("""
     <style>
-
     .card{
         background:white;
         padding:20px;
@@ -701,158 +697,152 @@ elif menu == "dashboard":
         font-size:18px;
         color:black;
     }
-   .stPlotlyChart text {
-    fill: blue !important;
-}
 
-</style>
-""", unsafe_allow_html=True)
+    .stPlotlyChart text {
+        fill: blue !important;
+    }
+
+    .st-key-district_select div[data-baseweb="select"] > div {
+        background-color: #ffffff !important;
+        border: 2px solid #0b5ed7 !important;
+        border-radius: 8px !important;
+    }
+
+    .st-key-district_select div[data-baseweb="select"] > div * {
+        color: #000000 !important;
+        -webkit-text-fill-color: #000000 !important;
+    }
+
+    .st-key-district_select div[data-baseweb="select"] input {
+        color: #000000 !important;
+        -webkit-text-fill-color: #000000 !important;
+    }
+
+    .st-key-district_select ul[data-baseweb="menu"] {
+        background-color: #ffffff !important;
+    }
+
+    .st-key-district_select li[role="option"] {
+        color: #000000 !important;
+        background-color: #ffffff !important;
+    }
+
+    .st-key-district_select li[role="option"]:hover {
+        background-color: #e8f1ff !important;
+        color: #000000 !important;
+    }
+    </style>
+    """, unsafe_allow_html=True)
 
     selected_district = st.selectbox(
-    "📍 Select District",
-    sorted(df["district"].dropna().unique()),
-    key="district_select"
-)
-
-st.markdown("""
-<style>
-.st-key-district_select div[data-baseweb="select"] > div {
-    background-color: #ffffff !important;
-    border: 2px solid #0b5ed7 !important;
-    border-radius: 8px !important;
-}
-
-.st-key-district_select div[data-baseweb="select"] > div * {
-    color: #000000 !important;
-    -webkit-text-fill-color: #000000 !important;
-}
-
-.st-key-district_select div[data-baseweb="select"] input {
-    color: #000000 !important;
-    -webkit-text-fill-color: #000000 !important;
-}
-</style>
-""", unsafe_allow_html=True)
-
-   
-
-col1, col2, col3, = st.columns(3)
-with col1:
-    st.markdown(f"""
-    <div class="card">
-    <div class="title">Population</div>
-    <div class="number">{int(district_df["population"].mean())}</div>
-    </div>
-    """, unsafe_allow_html=True)
-with col2:
-    st.markdown(f"""
-    <div class="card">
-    <div class="title">Avg Rainfall</div>
-    <div class="number">{district_df["rainfall_mm"].mean():.2f}</div>
-    </div>
-    """, unsafe_allow_html=True)
-
-with col3:
-    st.markdown(f"""
-    <div class="card">
-    <div class="title">Water Consumption</div>
-    <div class="number">{district_df["water_consumption_mld"].mean():.2f}</div>
-    </div>
-    """, unsafe_allow_html=True)
-
-   
-
-col1, col2 = st.columns(2)
-with col1:
-
-    st.subheader("📊 Water Consumption")
-
-    fig1 = px.bar(
-        district_df.head(20),
-        x="taluka",
-        y="water_consumption_mld",
-        color="water_consumption_mld",
-        title="Water Consumption by Taluka"
+        "📍 Select District",
+        sorted(df["district"].dropna().unique()),
+        key="district_select"
     )
 
-    fig1.update_layout(
-        plot_bgcolor="white",
-        paper_bgcolor="white",
-        font=dict(color="#0b5ed7")
-    )
+    district_df = df[df["district"] == selected_district]
 
-    st.plotly_chart(fig1, use_container_width=True)
+    st.divider()
 
-with col2:
+    col1, col2, col3 = st.columns(3)
 
-    st.subheader("💧 Water Shortage Risk")
+    with col1:
+        st.markdown(f"""
+        <div class="card">
+            <div class="title">Population</div>
+            <div class="number">{int(district_df["population"].mean())}</div>
+        </div>
+        """, unsafe_allow_html=True)
 
-    risk = district_df["water_shortage_risk"].value_counts().reset_index()
+    with col2:
+        st.markdown(f"""
+        <div class="card">
+            <div class="title">Avg Rainfall</div>
+            <div class="number">{district_df["rainfall_mm"].mean():.2f}</div>
+        </div>
+        """, unsafe_allow_html=True)
 
-    risk.columns = ["Risk", "Count"]
+    with col3:
+        st.markdown(f"""
+        <div class="card">
+            <div class="title">Water Consumption</div>
+            <div class="number">{district_df["water_consumption_mld"].mean():.2f}</div>
+        </div>
+        """, unsafe_allow_html=True)
 
-    fig2 = px.pie(
-        risk,
-        names="Risk",
-        values="Count",
-        title="Water Shortage Risk"
-    )
-    fig2.update_layout(
-        plot_bgcolor="white",
-        paper_bgcolor="white",
-        font=dict(color="#0b5ed7")
-    )
+    col1, col2 = st.columns(2)
 
-    st.plotly_chart(fig2, use_container_width=True)
+    with col1:
+        st.subheader("📊 Water Consumption")
+        fig1 = px.bar(
+            district_df.head(20),
+            x="taluka",
+            y="water_consumption_mld",
+            color="water_consumption_mld",
+            title="Water Consumption by Taluka"
+        )
+        fig1.update_layout(
+            plot_bgcolor="white",
+            paper_bgcolor="white",
+            font=dict(color="#0b5ed7")
+        )
+        st.plotly_chart(fig1, use_container_width=True)
 
-    
-col3, col4 = st.columns(2)
+    with col2:
+        st.subheader("💧 Water Shortage Risk")
+        risk = district_df["water_shortage_risk"].value_counts().reset_index()
+        risk.columns = ["Risk", "Count"]
 
-with col3:
+        fig2 = px.pie(
+            risk,
+            names="Risk",
+            values="Count",
+            title="Water Shortage Risk"
+        )
+        fig2.update_layout(
+            plot_bgcolor="white",
+            paper_bgcolor="white",
+            font=dict(color="#0b5ed7")
+        )
+        st.plotly_chart(fig2, use_container_width=True)
 
-    st.subheader(" Rainfall vs Groundwater")
+    col3, col4 = st.columns(2)
 
-    fig3 = px.scatter(
-        district_df,
-        x="rainfall_mm",
-        y="groundwater_level_m",
-        color="water_shortage_risk",
-        title="Rainfall vs Groundwater Level"
-    )
-    fig3.update_layout(
-        plot_bgcolor="white",
-        font=dict(color="#0b5ed7"),
-        paper_bgcolor="white"
-    )
+    with col3:
+        st.subheader("Rainfall vs Groundwater")
+        fig3 = px.scatter(
+            district_df,
+            x="rainfall_mm",
+            y="groundwater_level_m",
+            color="water_shortage_risk",
+            title="Rainfall vs Groundwater Level"
+        )
+        fig3.update_layout(
+            plot_bgcolor="white",
+            paper_bgcolor="white",
+            font=dict(color="#0b5ed7")
+        )
+        st.plotly_chart(fig3, use_container_width=True)
 
-    st.plotly_chart(fig3, use_container_width=True)
+    with col4:
+        st.subheader("Leakage Detection")
+        leak = district_df["leakage_detected"].value_counts().reset_index()
+        leak.columns = ["Leakage", "Count"]
 
-with col4:
+        fig4 = px.pie(
+            leak,
+            names="Leakage",
+            values="Count",
+            title="Leakage Status"
+        )
+        fig4.update_layout(
+            plot_bgcolor="white",
+            paper_bgcolor="white",
+            font=dict(color="#0b5ed7")
+        )
+        st.plotly_chart(fig4, use_container_width=True)
 
-    st.subheader(" Leakage Detection")
-
-    leak = district_df["leakage_detected"].value_counts().reset_index()
-
-    leak.columns = ["Leakage", "Count"]
-
-    fig4 = px.pie(
-        leak,
-        names="Leakage",
-        values="Count",
-        title="Leakage Status"
-    )
-    fig4.update_layout(
-        plot_bgcolor="white",
-        font=dict(color="#0b5ed7"),
-        paper_bgcolor="white"
-    )
-
-    st.plotly_chart(fig4, use_container_width=True)
-
-
-
-    st.subheader(" Temperature Distribution")
-
+    st.subheader("Temperature Distribution")
     fig5 = px.histogram(
         district_df,
         x="temperature_c",
@@ -861,11 +851,10 @@ with col4:
     )
     fig5.update_layout(
         plot_bgcolor="white",
-        font=dict(color="#0b5ed7"),
         paper_bgcolor="white",
+        font=dict(color="#0b5ed7"),
         title_font=dict(color="#0b5ed7")
     )
-
     st.plotly_chart(fig5, use_container_width=True)
     
 st.divider()
