@@ -692,7 +692,7 @@ elif menu == "dashboard":
     st.markdown("""
     <style>
 
-    /* Dashboard Selectbox */
+    /* Selectbox */
     div[data-testid="stSelectbox"] > div {
         background-color: white !important;
         border: 2px solid #0b5ed7 !important;
@@ -709,7 +709,8 @@ elif menu == "dashboard":
         fill: black !important;
     }
 
-    /* Dropdown options */
+
+    /* Dropdown */
     div[role="listbox"] {
         background: white !important;
     }
@@ -723,217 +724,413 @@ elif menu == "dashboard":
         background: #e8f1ff !important;
     }
 
+
     /* KPI Cards */
     .card {
-        background: white;
-        padding: 20px;
-        border-radius: 12px;
-        box-shadow: 0px 2px 8px rgba(0,0,0,0.15);
-        text-align: center;
-        margin-bottom: 20px;
+        background:white;
+        padding:20px;
+        border-radius:12px;
+        box-shadow:0px 2px 8px rgba(0,0,0,0.15);
+        text-align:center;
+        margin-bottom:20px;
     }
 
     .title {
-        font-size: 18px;
-        color: black;
-        font-weight: bold;
+        font-size:18px;
+        color:black;
+        font-weight:bold;
     }
 
     .number {
-        font-size: 28px;
-        color: #0b5ed7;
-        font-weight: bold;
+        font-size:28px;
+        color:#0b5ed7;
+        font-weight:bold;
     }
 
     </style>
+
     """, unsafe_allow_html=True)
 
+
+
+    # ---------------- Plot Style Function ---------------- #
+
+    def plot_style(fig):
+
+        fig.update_layout(
+
+            template="plotly_white",
+
+            paper_bgcolor="white",
+
+            plot_bgcolor="white",
+
+            font=dict(
+                color="black",
+                size=14
+            ),
+
+            title_font=dict(
+                color="black",
+                size=20
+            ),
+
+            xaxis=dict(
+                title_font=dict(color="black"),
+                tickfont=dict(color="black")
+            ),
+
+            yaxis=dict(
+                title_font=dict(color="black"),
+                tickfont=dict(color="black")
+            ),
+
+            legend=dict(
+                font=dict(color="black")
+            )
+
+        )
+
+        return fig
+
+
+
     # ---------------- District Selection ---------------- #
+
     selected_district = st.selectbox(
+
         "📍 Select District",
+
         sorted(df["district"].dropna().unique())
+
     )
 
-    district_df = df[df["district"] == selected_district]
+
+    district_df = df[
+        df["district"] == selected_district
+    ]
+
 
     st.divider()
+
+
 
     # ---------------- KPI Cards ---------------- #
+
     c1, c2, c3 = st.columns(3)
 
+
+
     with c1:
+
         st.markdown(f"""
+
         <div class="card">
-            <div class="title">Population</div>
-            <div class="number">{int(district_df["population"].mean())}</div>
+
+        <div class="title">
+        Population
         </div>
-        """, unsafe_allow_html=True)
+
+        <div class="number">
+        {int(district_df["population"].mean())}
+        </div>
+
+        </div>
+
+        """,
+        unsafe_allow_html=True)
+
+
 
     with c2:
+
         st.markdown(f"""
+
         <div class="card">
-            <div class="title">Avg Rainfall</div>
-            <div class="number">{district_df["rainfall_mm"].mean():.2f}</div>
+
+        <div class="title">
+        Avg Rainfall (mm)
         </div>
-        """, unsafe_allow_html=True)
+
+        <div class="number">
+        {district_df["rainfall_mm"].mean():.2f}
+        </div>
+
+        </div>
+
+        """,
+        unsafe_allow_html=True)
+
+
 
     with c3:
+
         st.markdown(f"""
+
         <div class="card">
-            <div class="title">Water Consumption</div>
-            <div class="number">{district_df["water_consumption_mld"].mean():.2f}</div>
+
+        <div class="title">
+        Water Consumption (MLD)
         </div>
-        """, unsafe_allow_html=True)
+
+        <div class="number">
+        {district_df["water_consumption_mld"].mean():.2f}
+        </div>
+
+        </div>
+
+        """,
+        unsafe_allow_html=True)
+
+
 
     st.divider()
 
-    # ---------------- Charts ---------------- #
+
+
+    # ---------------- Chart 1 & 2 ---------------- #
+
     col1, col2 = st.columns(2)
 
+
+
     with col1:
+
+
         fig1 = px.bar(
+
             district_df.head(20),
+
             x="taluka",
+
             y="water_consumption_mld",
+
             color="water_consumption_mld",
-            title="Water Consumption by Taluka"
-        )
-        fig1.update_layout(
-            template="plotly_white",
-    paper_bgcolor="white",
-    plot_bgcolor="white",
-    font=dict(color="black", size=14),
-    title_font=dict(color="black", size=20),
-    xaxis=dict(
-        title_font=dict(color="black"),
-        tickfont=dict(color="black")
-    ),
-    yaxis=dict(
-        title_font=dict(color="black"),
-        tickfont=dict(color="black")
-    ),
-    legend=dict(font=dict(color="black"))
-)
+
+            title="💧 Water Consumption by Taluka"
 
         )
-        st.plotly_chart(fig1, use_container_width=True)
+
+
+        fig1 = plot_style(fig1)
+
+
+        st.plotly_chart(
+            fig1,
+            use_container_width=True
+        )
+
+
+
 
     with col2:
-        risk = district_df["water_shortage_risk"].value_counts().reset_index()
-        risk.columns = ["Risk", "Count"]
+
+
+        risk = (
+
+            district_df[
+                "water_shortage_risk"
+            ]
+
+            .value_counts()
+
+            .reset_index()
+
+        )
+
+
+        risk.columns = [
+            "Risk",
+            "Count"
+        ]
+
 
         fig2 = px.pie(
+
             risk,
+
             names="Risk",
+
             values="Count",
-            title="Water Shortage Risk"
-        )
-        fig2.update_layout(
-            template="plotly_white",
-    paper_bgcolor="white",
-    plot_bgcolor="white",
-    font=dict(color="black", size=14),
-    title_font=dict(color="black", size=20),
-    xaxis=dict(
-        title_font=dict(color="black"),
-        tickfont=dict(color="black")
-    ),
-    yaxis=dict(
-        title_font=dict(color="black"),
-        tickfont=dict(color="black")
-    ),
-    legend=dict(font=dict(color="black"))
-)
+
+            title="⚠️ Water Shortage Risk"
 
         )
-        st.plotly_chart(fig2, use_container_width=True)
+
+
+        fig2 = plot_style(fig2)
+
+
+        st.plotly_chart(
+
+            fig2,
+
+            use_container_width=True
+
+        )
+
+
+
+    # ---------------- Chart 3 & 4 ---------------- #
 
     col3, col4 = st.columns(2)
 
+
+
     with col3:
+
+
         fig3 = px.scatter(
+
             district_df,
+
             x="rainfall_mm",
+
             y="groundwater_level_m",
+
             color="water_shortage_risk",
-            title="Rainfall vs Groundwater Level"
+
+            title="🌧 Rainfall vs Groundwater Level"
+
         )
-        fig3.update_layout(
-           template="plotly_white",
-    paper_bgcolor="white",
-    plot_bgcolor="white",
-    font=dict(color="black", size=14),
-    title_font=dict(color="black", size=20),
-    xaxis=dict(
-        title_font=dict(color="black"),
-        tickfont=dict(color="black")
-    ),
-    yaxis=dict(
-        title_font=dict(color="black"),
-        tickfont=dict(color="black")
-    ),
-    legend=dict(font=dict(color="black"))
-)
-)
-        
-        st.plotly_chart(fig3, use_container_width=True)
+
+
+        fig3 = plot_style(fig3)
+
+
+        st.plotly_chart(
+
+            fig3,
+
+            use_container_width=True
+
+        )
+
+
 
     with col4:
-        leak = district_df["leakage_detected"].value_counts().reset_index()
-        leak.columns = ["Leakage", "Count"]
+
+
+        leak = (
+
+            district_df[
+                "leakage_detected"
+            ]
+
+            .value_counts()
+
+            .reset_index()
+
+        )
+
+
+        leak.columns = [
+
+            "Leakage",
+
+            "Count"
+
+        ]
+
+
 
         fig4 = px.pie(
+
             leak,
+
             names="Leakage",
+
             values="Count",
-            title="Leakage Status"
+
+            title="🔍 Leakage Detection Status"
+
         )
-        fig4.update_layout(
-            template="plotly_white",
-    paper_bgcolor="white",
-    plot_bgcolor="white",
-    font=dict(color="black", size=14),
-    title_font=dict(color="black", size=20),
-    xaxis=dict(
-        title_font=dict(color="black"),
-        tickfont=dict(color="black")
-    ),
-    yaxis=dict(
-        title_font=dict(color="black"),
-        tickfont=dict(color="black")
-    ),
-    legend=dict(font=dict(color="black"))
-)
 
-        
-        st.plotly_chart(fig4, use_container_width=True)
 
-    st.subheader("🌡 Temperature Distribution")
+        fig4 = plot_style(fig4)
+
+
+
+        st.plotly_chart(
+
+            fig4,
+
+            use_container_width=True
+
+        )
+
+
+
+
+    # ---------------- Temperature ---------------- #
+
+    st.subheader(
+        "🌡 Temperature Distribution"
+    )
+
 
     fig5 = px.histogram(
-        district_df,
-        x="temperature_c",
-        nbins=20,
-        title="Temperature Distribution"
-    )
-    fig5.update_layout(
-        template="plotly_white",
-    paper_bgcolor="white",
-    plot_bgcolor="white",
-    font=dict(color="black", size=14),
-    title_font=dict(color="black", size=20),
-    xaxis=dict(
-        title_font=dict(color="black"),
-        tickfont=dict(color="black")
-    ),
-    yaxis=dict(
-        title_font=dict(color="black"),
-        tickfont=dict(color="black")
-    ),
-    legend=dict(font=dict(color="black"))
-)
 
-    st.plotly_chart(fig5, use_container_width=True)
+        district_df,
+
+        x="temperature_c",
+
+        nbins=20,
+
+        title="Temperature Distribution"
+
+    )
+
+
+    fig5 = plot_style(fig5)
+
+
+
+    st.plotly_chart(
+
+        fig5,
+
+        use_container_width=True
+
+    )
+
+
+
+    # ---------------- District Summary ---------------- #
+
+    st.divider()
+
+
+    st.subheader(
+        "📊 District Water Summary"
+    )
+
+
+    summary = district_df[
+
+        [
+
+        "population",
+
+        "rainfall_mm",
+
+        "groundwater_level_m",
+
+        "water_consumption_mld"
+
+        ]
+
+    ].describe().round(2)
+
+
+
+    st.dataframe(
+
+        summary,
+
+        use_container_width=True
+
+    )
 st.divider()
 
 st.markdown(
