@@ -109,6 +109,52 @@ div[data-testid="stNumberInput"] button {
 div[data-testid="stNumberInput"] input:focus {
     caret-color: #0b5ed7 !important;
 }
+/* All input boxes */
+div[data-baseweb="input"] {
+    background-color: #ffffff !important;
+    border: 2px solid #0b5ed7 !important;
+    border-radius: 8px !important;
+}
+
+div[data-baseweb="input"] input {
+    background-color: #ffffff !important;
+    color: #1a1a1a !important;
+    caret-color: #0b5ed7 !important;
+}
+
+/* Number input wrapper */
+div[data-testid="stNumberInput"] {
+    background-color: #ffffff !important;
+}
+
+/* Hide dark step buttons if needed */
+div[data-testid="stNumberInput"] button {
+    background-color: #ffffff !important;
+    color: #0b5ed7 !important;
+}
+
+/* Selectbox */
+div[data-baseweb="select"] > div {
+    background-color: #ffffff !important;
+    color: #1a1a1a !important;
+    border: 2px solid #0b5ed7 !important;
+    border-radius: 8px !important;
+}
+
+/* Selectbox text */
+div[data-baseweb="select"] * {
+    color: #1a1a1a !important;
+}
+
+/* Dropdown menu */
+div[data-baseweb="popover"] {
+    background-color: #ffffff !important;
+}
+
+/* General labels */
+label, span, p, div {
+    color: #1a1a1a;
+}
 </style>
 """, unsafe_allow_html=True)
 
