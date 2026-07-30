@@ -772,7 +772,7 @@ elif menu == "dashboard":
         fig1.update_layout(
             plot_bgcolor="white",
             paper_bgcolor="white",
-            font=dict(color="#0b5ed7")
+            font=dict(color="black")
         )
 
         st.plotly_chart(fig1, use_container_width=True)
@@ -794,7 +794,7 @@ elif menu == "dashboard":
         fig2.update_layout(
             plot_bgcolor="white",
             paper_bgcolor="white",
-            font=dict(color="#0b5ed7")
+            font=dict(color="black")
         )
 
         st.plotly_chart(fig2, use_container_width=True)
@@ -815,7 +815,7 @@ elif menu == "dashboard":
         )
         fig3.update_layout(
             plot_bgcolor="white",
-            font=dict(color="#0b5ed7"),
+            font=dict(color="black"),
             paper_bgcolor="white"
         )
 
@@ -837,7 +837,7 @@ elif menu == "dashboard":
         )
         fig4.update_layout(
             plot_bgcolor="white",
-            font=dict(color="#0b5ed7"),
+            font=dict(color="black"),
             paper_bgcolor="white"
         )
 
@@ -855,7 +855,7 @@ elif menu == "dashboard":
     )
     fig5.update_layout(
         plot_bgcolor="white",
-        font=dict(color="#0b5ed7"),
+        font=dict(color="black"),
         paper_bgcolor="white",
         title_font=dict(color="#0b5ed7")
     )
