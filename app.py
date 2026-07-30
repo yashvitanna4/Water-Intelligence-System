@@ -155,6 +155,21 @@ div[data-baseweb="popover"] {
 label, span, p, div {
     color: #1a1a1a;
 }
+div[data-baseweb="input"] {
+    background-color: #ffffff !important;
+    border: 2px solid #0b5ed7 !important;
+    border-radius: 8px !important;
+}
+
+div[data-baseweb="input"] input {
+    background-color: #ffffff !important;
+    color: #1a1a1a !important;
+    caret-color: #0b5ed7 !important;
+}
+
+div[data-testid="stNumberInput"] {
+    background-color: #ffffff !important;
+}
 </style>
 """, unsafe_allow_html=True)
 
