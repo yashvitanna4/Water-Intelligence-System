@@ -688,7 +688,7 @@ elif menu == "dashboard":
 
     st.title("💧 Water Intelligence Dashboard")
 
-    # ---------------- CSS ---------------- #
+    
     st.markdown("""
     <style>
 
@@ -753,7 +753,7 @@ elif menu == "dashboard":
 
 
 
-    # ---------------- Plot Style Function ---------------- #
+   
 
     def plot_style(fig):
 
@@ -795,8 +795,6 @@ elif menu == "dashboard":
 
 
 
-    # ---------------- District Selection ---------------- #
-
     selected_district = st.selectbox(
 
         "📍 Select District",
@@ -815,7 +813,7 @@ elif menu == "dashboard":
 
 
 
-    # ---------------- KPI Cards ---------------- #
+   
 
     c1, c2, c3 = st.columns(3)
 
@@ -888,7 +886,7 @@ elif menu == "dashboard":
 
 
 
-    # ---------------- Chart 1 & 2 ---------------- #
+   
 
     col1, col2 = st.columns(2)
 
@@ -971,8 +969,7 @@ elif menu == "dashboard":
 
 
 
-    # ---------------- Chart 3 & 4 ---------------- #
-
+    
     col3, col4 = st.columns(2)
 
 
@@ -1062,7 +1059,7 @@ elif menu == "dashboard":
 
 
 
-    # ---------------- Temperature ---------------- #
+    
 
     st.subheader(
         "🌡 Temperature Distribution"
