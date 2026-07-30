@@ -693,72 +693,62 @@ elif menu == "dashboard":
     <style>
 
     /* Dashboard Selectbox */
-    div[data-testid="stSelectbox"]{
+    div[data-testid="stSelectbox"] > div {
+        background-color: white !important;
+        border: 2px solid #0b5ed7 !important;
+        border-radius: 8px !important;
+    }
+
+    div[data-testid="stSelectbox"] input {
+        color: black !important;
+        background-color: white !important;
+        -webkit-text-fill-color: black !important;
+    }
+
+    div[data-testid="stSelectbox"] svg {
+        fill: black !important;
+    }
+
+    /* Dropdown options */
+    div[role="listbox"] {
         background: white !important;
     }
 
-    div[data-testid="stSelectbox"] > div{
+    div[role="option"] {
         background: white !important;
+        color: black !important;
     }
 
-    div[data-baseweb="select"]{
-        background: white !important;
-        border:2px solid #0b5ed7 !important;
-        border-radius:8px !important;
-        color:black !important;
+    div[role="option"]:hover {
+        background: #e8f1ff !important;
     }
 
-    div[data-baseweb="select"] *{
-        background:white !important;
-        color:black !important;
-        fill:black !important;
+    /* KPI Cards */
+    .card {
+        background: white;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0px 2px 8px rgba(0,0,0,0.15);
+        text-align: center;
+        margin-bottom: 20px;
     }
 
-    div[data-baseweb="popover"]{
-        background:white !important;
+    .title {
+        font-size: 18px;
+        color: black;
+        font-weight: bold;
     }
 
-    div[role="listbox"]{
-        background:white !important;
-    }
-
-    div[role="option"]{
-        background:white !important;
-        color:black !important;
-    }
-
-    div[role="option"]:hover{
-        background:#e8f1ff !important;
-    }
-
-    /* Cards */
-
-    .card{
-        background:white;
-        padding:20px;
-        border-radius:12px;
-        box-shadow:0px 2px 8px rgba(0,0,0,0.15);
-        text-align:center;
-        margin-bottom:20px;
-    }
-
-    .title{
-        font-size:18px;
-        color:black;
-        font-weight:bold;
-    }
-
-    .number{
-        font-size:28px;
-        color:#0b5ed7;
-        font-weight:bold;
+    .number {
+        font-size: 28px;
+        color: #0b5ed7;
+        font-weight: bold;
     }
 
     </style>
     """, unsafe_allow_html=True)
 
-    # ---------------- District ---------------- #
-
+    # ---------------- District Selection ---------------- #
     selected_district = st.selectbox(
         "📍 Select District",
         sorted(df["district"].dropna().unique())
@@ -769,7 +759,6 @@ elif menu == "dashboard":
     st.divider()
 
     # ---------------- KPI Cards ---------------- #
-
     c1, c2, c3 = st.columns(3)
 
     with c1:
@@ -783,7 +772,7 @@ elif menu == "dashboard":
     with c2:
         st.markdown(f"""
         <div class="card">
-            <div class="title">Average Rainfall</div>
+            <div class="title">Avg Rainfall</div>
             <div class="number">{district_df["rainfall_mm"].mean():.2f}</div>
         </div>
         """, unsafe_allow_html=True)
@@ -799,7 +788,6 @@ elif menu == "dashboard":
     st.divider()
 
     # ---------------- Charts ---------------- #
-
     col1, col2 = st.columns(2)
 
     with col1:
