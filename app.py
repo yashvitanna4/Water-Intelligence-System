@@ -109,67 +109,57 @@ div[data-testid="stNumberInput"] button {
 div[data-testid="stNumberInput"] input:focus {
     caret-color: #0b5ed7 !important;
 }
-/* All input boxes */
-div[data-baseweb="input"] {
-    background-color: #ffffff !important;
+/* Number Input */
+div[data-testid="stNumberInput"] input {
+    background-color: white !important;
+    color: black !important;
     border: 2px solid #0b5ed7 !important;
     border-radius: 8px !important;
 }
 
-div[data-baseweb="input"] input {
-    background-color: #ffffff !important;
-    color: #1a1a1a !important;
-    caret-color: #0b5ed7 !important;
+div[data-testid="stNumberInput"] input::placeholder {
+    color: gray !important;
 }
 
-/* Number input wrapper */
-div[data-testid="stNumberInput"] {
-    background-color: #ffffff !important;
+/* Text Input */
+div[data-testid="stTextInput"] input {
+    background-color: white !important;
+    color: black !important;
 }
 
-/* Hide dark step buttons if needed */
-div[data-testid="stNumberInput"] button {
-    background-color: #ffffff !important;
-    color: #0b5ed7 !important;
-}
-
-/* Selectbox */
-div[data-baseweb="select"] > div {
-    background-color: #ffffff !important;
-    color: #1a1a1a !important;
+/* Selectbox (Dashboard District Selection) */
+div[data-testid="stSelectbox"] > div > div {
+    background-color: white !important;
+    color: black !important;
     border: 2px solid #0b5ed7 !important;
     border-radius: 8px !important;
 }
 
-/* Selectbox text */
-div[data-baseweb="select"] * {
-    color: #1a1a1a !important;
+/* Selected value */
+div[data-testid="stSelectbox"] span {
+    color: black !important;
 }
 
 /* Dropdown menu */
-div[data-baseweb="popover"] {
-    background-color: #ffffff !important;
+div[role="listbox"] {
+    background-color: white !important;
 }
 
-/* General labels */
-label, span, p, div {
-    color: #1a1a1a;
-}
-div[data-baseweb="input"] {
-    background-color: #ffffff !important;
-    border: 2px solid #0b5ed7 !important;
-    border-radius: 8px !important;
+div[role="option"] {
+    background-color: white !important;
+    color: black !important;
 }
 
-div[data-baseweb="input"] input {
-    background-color: #ffffff !important;
-    color: #1a1a1a !important;
-    caret-color: #0b5ed7 !important;
+div[role="option"]:hover {
+    background-color: #e8f1ff !important;
 }
 
-div[data-testid="stNumberInput"] {
-    background-color: #ffffff !important;
+/* Hide number input arrows */
+button[data-testid="stNumberInputStepUp"],
+button[data-testid="stNumberInputStepDown"] {
+    display: none !important;
 }
+
 </style>
 """, unsafe_allow_html=True)
 
