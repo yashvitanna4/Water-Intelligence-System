@@ -109,56 +109,6 @@ div[data-testid="stNumberInput"] button {
 div[data-testid="stNumberInput"] input:focus {
     caret-color: #0b5ed7 !important;
 }
-
-/* Selectbox */
-div[data-baseweb="select"] > div {
-    background-color: white !important;
-    color: black !important;
-    border: 1px solid #cccccc !important;
-}
-
-/* Selectbox text */
-div[data-baseweb="select"] span {
-    color: black !important;
-}
-
-/* Dropdown menu */
-ul[data-baseweb="menu"] {
-    background-color: white !important;
-}
-
-li[role="option"] {
-    color: black !important;
-    background-color: white !important;
-}
-
-/* Metric cards */
-div[data-testid="stMetric"] {
-    background-color: white;
-    border: 1px solid #dddddd;
-    padding: 15px;
-    border-radius: 10px;
-}
-
-/* Dataframe */
-div[data-testid="stDataFrame"] {
-    background-color: white;
-}
-
-/* Remove top blank header area */
-header[data-testid="stHeader"] {
-    background-color: white !important;
-}
-
-/* Sidebar if used */
-section[data-testid="stSidebar"] {
-    background-color: white !important;
-}
-
-section[data-testid="stSidebar"] * {
-    color: black !important;
-}
-
 </style>
 """, unsafe_allow_html=True)
 
@@ -184,7 +134,7 @@ menu = option_menu(
     default_index=0,
     orientation="horizontal",
 
-    styles={
+   styles={
          
         "container": {
             "padding": "5px",
@@ -711,12 +661,9 @@ elif menu == "dashboard":
         font-size:18px;
         color:black;
     }
-   .stPlotlyChart text {
-    fill: blue !important;
-}
 
-</style>
-""", unsafe_allow_html=True)
+    </style>
+    """, unsafe_allow_html=True))
 
     selected_district = st.selectbox(
         "📍 Select District",
