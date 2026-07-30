@@ -1096,41 +1096,6 @@ elif menu == "dashboard":
 
 
 
-    # ---------------- District Summary ---------------- #
-
-    st.divider()
-
-
-    st.subheader(
-        "📊 District Water Summary"
-    )
-
-
-    summary = district_df[
-
-        [
-
-        "population",
-
-        "rainfall_mm",
-
-        "groundwater_level_m",
-
-        "water_consumption_mld"
-
-        ]
-
-    ].describe().round(2)
-
-
-
-    st.dataframe(
-
-        summary,
-
-        use_container_width=True
-
-    )
 st.divider()
 
 st.markdown(
