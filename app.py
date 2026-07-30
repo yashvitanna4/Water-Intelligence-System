@@ -799,9 +799,22 @@ elif menu == "dashboard":
             title="Water Consumption by Taluka"
         )
         fig1.update_layout(
-            paper_bgcolor="white",
-            plot_bgcolor="white",
-            font=dict(color="black")
+            template="plotly_white",
+    paper_bgcolor="white",
+    plot_bgcolor="white",
+    font=dict(color="black", size=14),
+    title_font=dict(color="black", size=20),
+    xaxis=dict(
+        title_font=dict(color="black"),
+        tickfont=dict(color="black")
+    ),
+    yaxis=dict(
+        title_font=dict(color="black"),
+        tickfont=dict(color="black")
+    ),
+    legend=dict(font=dict(color="black"))
+)
+
         )
         st.plotly_chart(fig1, use_container_width=True)
 
@@ -816,9 +829,22 @@ elif menu == "dashboard":
             title="Water Shortage Risk"
         )
         fig2.update_layout(
-            paper_bgcolor="white",
-            plot_bgcolor="white",
-            font=dict(color="black")
+            template="plotly_white",
+    paper_bgcolor="white",
+    plot_bgcolor="white",
+    font=dict(color="black", size=14),
+    title_font=dict(color="black", size=20),
+    xaxis=dict(
+        title_font=dict(color="black"),
+        tickfont=dict(color="black")
+    ),
+    yaxis=dict(
+        title_font=dict(color="black"),
+        tickfont=dict(color="black")
+    ),
+    legend=dict(font=dict(color="black"))
+)
+
         )
         st.plotly_chart(fig2, use_container_width=True)
 
@@ -833,10 +859,23 @@ elif menu == "dashboard":
             title="Rainfall vs Groundwater Level"
         )
         fig3.update_layout(
-            paper_bgcolor="white",
-            plot_bgcolor="white",
-            font=dict(color="black")
-        )
+           template="plotly_white",
+    paper_bgcolor="white",
+    plot_bgcolor="white",
+    font=dict(color="black", size=14),
+    title_font=dict(color="black", size=20),
+    xaxis=dict(
+        title_font=dict(color="black"),
+        tickfont=dict(color="black")
+    ),
+    yaxis=dict(
+        title_font=dict(color="black"),
+        tickfont=dict(color="black")
+    ),
+    legend=dict(font=dict(color="black"))
+)
+)
+        
         st.plotly_chart(fig3, use_container_width=True)
 
     with col4:
@@ -850,10 +889,23 @@ elif menu == "dashboard":
             title="Leakage Status"
         )
         fig4.update_layout(
-            paper_bgcolor="white",
-            plot_bgcolor="white",
-            font=dict(color="black")
-        )
+            template="plotly_white",
+    paper_bgcolor="white",
+    plot_bgcolor="white",
+    font=dict(color="black", size=14),
+    title_font=dict(color="black", size=20),
+    xaxis=dict(
+        title_font=dict(color="black"),
+        tickfont=dict(color="black")
+    ),
+    yaxis=dict(
+        title_font=dict(color="black"),
+        tickfont=dict(color="black")
+    ),
+    legend=dict(font=dict(color="black"))
+)
+
+        
         st.plotly_chart(fig4, use_container_width=True)
 
     st.subheader("🌡 Temperature Distribution")
@@ -865,10 +917,22 @@ elif menu == "dashboard":
         title="Temperature Distribution"
     )
     fig5.update_layout(
-        paper_bgcolor="white",
-        plot_bgcolor="white",
-        font=dict(color="black")
-    )
+        template="plotly_white",
+    paper_bgcolor="white",
+    plot_bgcolor="white",
+    font=dict(color="black", size=14),
+    title_font=dict(color="black", size=20),
+    xaxis=dict(
+        title_font=dict(color="black"),
+        tickfont=dict(color="black")
+    ),
+    yaxis=dict(
+        title_font=dict(color="black"),
+        tickfont=dict(color="black")
+    ),
+    legend=dict(font=dict(color="black"))
+)
+
     st.plotly_chart(fig5, use_container_width=True)
 st.divider()
 
