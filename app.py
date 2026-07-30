@@ -715,6 +715,14 @@ elif menu == "dashboard":
 
     </style>
     """, unsafe_allow_html=True)
+    st.markdown("""
+    <style>
+    [data-baseweb="select"] * {
+    background-color: white !important;
+    color: black !important;
+    }
+    </style>
+    """, unsafe_allow_html=True)
 
     selected_district = st.selectbox(
         "📍 Select District",
