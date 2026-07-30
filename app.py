@@ -688,10 +688,50 @@ elif menu == "dashboard":
 
     st.title("💧 Water Intelligence Dashboard")
 
-    
-
+    # ---------------- CSS ---------------- #
     st.markdown("""
     <style>
+
+    /* Dashboard Selectbox */
+    div[data-testid="stSelectbox"]{
+        background: white !important;
+    }
+
+    div[data-testid="stSelectbox"] > div{
+        background: white !important;
+    }
+
+    div[data-baseweb="select"]{
+        background: white !important;
+        border:2px solid #0b5ed7 !important;
+        border-radius:8px !important;
+        color:black !important;
+    }
+
+    div[data-baseweb="select"] *{
+        background:white !important;
+        color:black !important;
+        fill:black !important;
+    }
+
+    div[data-baseweb="popover"]{
+        background:white !important;
+    }
+
+    div[role="listbox"]{
+        background:white !important;
+    }
+
+    div[role="option"]{
+        background:white !important;
+        color:black !important;
+    }
+
+    div[role="option"]:hover{
+        background:#e8f1ff !important;
+    }
+
+    /* Cards */
 
     .card{
         background:white;
@@ -702,20 +742,22 @@ elif menu == "dashboard":
         margin-bottom:20px;
     }
 
+    .title{
+        font-size:18px;
+        color:black;
+        font-weight:bold;
+    }
+
     .number{
         font-size:28px;
         color:#0b5ed7;
         font-weight:bold;
     }
 
-    .title{
-        font-size:18px;
-        color:black;
-    }
-
     </style>
     """, unsafe_allow_html=True)
 
+    # ---------------- District ---------------- #
 
     selected_district = st.selectbox(
         "📍 Select District",
@@ -726,42 +768,41 @@ elif menu == "dashboard":
 
     st.divider()
 
-    
+    # ---------------- KPI Cards ---------------- #
 
-    c1, c2, c3, = st.columns(3)
+    c1, c2, c3 = st.columns(3)
 
     with c1:
         st.markdown(f"""
         <div class="card">
-        <div class="title">Population</div>
-        <div class="number">{int(district_df["population"].mean())}</div>
+            <div class="title">Population</div>
+            <div class="number">{int(district_df["population"].mean())}</div>
         </div>
         """, unsafe_allow_html=True)
 
     with c2:
         st.markdown(f"""
         <div class="card">
-        <div class="title">Avg Rainfall</div>
-        <div class="number">{district_df["rainfall_mm"].mean():.2f}</div>
+            <div class="title">Average Rainfall</div>
+            <div class="number">{district_df["rainfall_mm"].mean():.2f}</div>
         </div>
         """, unsafe_allow_html=True)
 
     with c3:
         st.markdown(f"""
         <div class="card">
-        <div class="title">Water Consumption</div>
-        <div class="number">{district_df["water_consumption_mld"].mean():.2f}</div>
+            <div class="title">Water Consumption</div>
+            <div class="number">{district_df["water_consumption_mld"].mean():.2f}</div>
         </div>
         """, unsafe_allow_html=True)
 
-   
+    st.divider()
+
+    # ---------------- Charts ---------------- #
 
     col1, col2 = st.columns(2)
 
     with col1:
-
-        st.subheader("📊 Water Consumption")
-
         fig1 = px.bar(
             district_df.head(20),
             x="taluka",
@@ -769,20 +810,15 @@ elif menu == "dashboard":
             color="water_consumption_mld",
             title="Water Consumption by Taluka"
         )
-
         fig1.update_layout(
+            paper_bgcolor="white",
             plot_bgcolor="white",
-            paper_bgcolor="white"
+            font=dict(color="black")
         )
-
         st.plotly_chart(fig1, use_container_width=True)
 
     with col2:
-
-        st.subheader("💧 Water Shortage Risk")
-
         risk = district_df["water_shortage_risk"].value_counts().reset_index()
-
         risk.columns = ["Risk", "Count"]
 
         fig2 = px.pie(
@@ -791,16 +827,16 @@ elif menu == "dashboard":
             values="Count",
             title="Water Shortage Risk"
         )
-
+        fig2.update_layout(
+            paper_bgcolor="white",
+            plot_bgcolor="white",
+            font=dict(color="black")
+        )
         st.plotly_chart(fig2, use_container_width=True)
 
-   
     col3, col4 = st.columns(2)
 
     with col3:
-
-        st.subheader("🌧 Rainfall vs Groundwater")
-
         fig3 = px.scatter(
             district_df,
             x="rainfall_mm",
@@ -808,15 +844,15 @@ elif menu == "dashboard":
             color="water_shortage_risk",
             title="Rainfall vs Groundwater Level"
         )
-
+        fig3.update_layout(
+            paper_bgcolor="white",
+            plot_bgcolor="white",
+            font=dict(color="black")
+        )
         st.plotly_chart(fig3, use_container_width=True)
 
     with col4:
-
-        st.subheader("🚰 Leakage Detection")
-
         leak = district_df["leakage_detected"].value_counts().reset_index()
-
         leak.columns = ["Leakage", "Count"]
 
         fig4 = px.pie(
@@ -825,11 +861,12 @@ elif menu == "dashboard":
             values="Count",
             title="Leakage Status"
         )
-
+        fig4.update_layout(
+            paper_bgcolor="white",
+            plot_bgcolor="white",
+            font=dict(color="black")
+        )
         st.plotly_chart(fig4, use_container_width=True)
-
-
-
 
     st.subheader("🌡 Temperature Distribution")
 
@@ -839,11 +876,12 @@ elif menu == "dashboard":
         nbins=20,
         title="Temperature Distribution"
     )
-
+    fig5.update_layout(
+        paper_bgcolor="white",
+        plot_bgcolor="white",
+        font=dict(color="black")
+    )
     st.plotly_chart(fig5, use_container_width=True)
-
-   
-    
 st.divider()
 
 st.markdown(
