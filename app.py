@@ -715,14 +715,7 @@ elif menu == "dashboard":
 
     </style>
     """, unsafe_allow_html=True)
-    st.markdown("""
-    <style>
-    [data-baseweb="select"] * {
-    background-color: white !important;
-    color: black !important;
-    }
-    </style>
-    """, unsafe_allow_html=True)
+
 
     selected_district = st.selectbox(
         "📍 Select District",
@@ -733,11 +726,11 @@ elif menu == "dashboard":
 
     st.divider()
 
-   
+    
 
-    col1, col2, col3, = st.columns(3)
+    c1, c2, c3, = st.columns(3)
 
-    with col1:
+    with c1:
         st.markdown(f"""
         <div class="card">
         <div class="title">Population</div>
@@ -745,7 +738,7 @@ elif menu == "dashboard":
         </div>
         """, unsafe_allow_html=True)
 
-    with col2:
+    with c2:
         st.markdown(f"""
         <div class="card">
         <div class="title">Avg Rainfall</div>
@@ -753,7 +746,7 @@ elif menu == "dashboard":
         </div>
         """, unsafe_allow_html=True)
 
-    with col3:
+    with c3:
         st.markdown(f"""
         <div class="card">
         <div class="title">Water Consumption</div>
@@ -779,8 +772,7 @@ elif menu == "dashboard":
 
         fig1.update_layout(
             plot_bgcolor="white",
-            paper_bgcolor="white",
-            font=dict(color="black")
+            paper_bgcolor="white"
         )
 
         st.plotly_chart(fig1, use_container_width=True)
@@ -799,20 +791,15 @@ elif menu == "dashboard":
             values="Count",
             title="Water Shortage Risk"
         )
-        fig2.update_layout(
-            plot_bgcolor="white",
-            paper_bgcolor="white",
-            font=dict(color="black")
-        )
 
         st.plotly_chart(fig2, use_container_width=True)
 
-    
+   
     col3, col4 = st.columns(2)
 
     with col3:
 
-        st.subheader(" Rainfall vs Groundwater")
+        st.subheader("🌧 Rainfall vs Groundwater")
 
         fig3 = px.scatter(
             district_df,
@@ -821,17 +808,12 @@ elif menu == "dashboard":
             color="water_shortage_risk",
             title="Rainfall vs Groundwater Level"
         )
-        fig3.update_layout(
-            plot_bgcolor="white",
-            font=dict(color="black"),
-            paper_bgcolor="white"
-        )
 
         st.plotly_chart(fig3, use_container_width=True)
 
     with col4:
 
-        st.subheader(" Leakage Detection")
+        st.subheader("🚰 Leakage Detection")
 
         leak = district_df["leakage_detected"].value_counts().reset_index()
 
@@ -843,17 +825,13 @@ elif menu == "dashboard":
             values="Count",
             title="Leakage Status"
         )
-        fig4.update_layout(
-            plot_bgcolor="white",
-            font=dict(color="black"),
-            paper_bgcolor="white"
-        )
 
         st.plotly_chart(fig4, use_container_width=True)
 
 
 
-    st.subheader(" Temperature Distribution")
+
+    st.subheader("🌡 Temperature Distribution")
 
     fig5 = px.histogram(
         district_df,
@@ -861,14 +839,10 @@ elif menu == "dashboard":
         nbins=20,
         title="Temperature Distribution"
     )
-    fig5.update_layout(
-        plot_bgcolor="white",
-        font=dict(color="black"),
-        paper_bgcolor="white",
-        title_font=dict(color="#0b5ed7")
-    )
 
     st.plotly_chart(fig5, use_container_width=True)
+
+   
     
 st.divider()
 
